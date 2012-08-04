@@ -1,0 +1,35 @@
+<!--
+    This file is part of Garage
+
+    Copyright (C) 2011 Igalia, S.L.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/common/layout/template.zul"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<?link rel="stylesheet" type="text/css" href="/common/css/snippr.css"?>
+
+<zk xmlns:w="http://www.zkoss.org/2005/zk/client">
+
+    <hbox self="@{define(login)}">
+        <div>
+            <button id="btn_signin" label="Sign in" onClick='alert("hola");' if="${sec:isNoneGranted('ROLE_USER')}" />
+            <label if="${sec:isAllGranted('ROLE_USER')}">${authentication.principal.username}</label>
+            <button label="Logout" href="/j_spring_security_logout" if="${sec:isAllGranted('ROLE_USER')}" />
+        </div>
+    </hbox>
+
+</zk>

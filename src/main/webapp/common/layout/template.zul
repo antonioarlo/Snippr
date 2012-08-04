@@ -20,14 +20,15 @@
 <?link rel="stylesheet" type="text/css" href="/common/css/snippr.css"?>
 
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?taglib uri="http://www.zkoss.org/zkspring/security" prefix="sec"?>
 
 <zk>
-
     <div xmlns:n="http://www.zkoss.org/2005/zk/native" height="100%">
         <borderlayout height="100%" width="100%">
             <north border="none">
                 <div>
                     <n:h2>Snippr</n:h2>
+                    <hbox self="@{insert(login)}" />
 
                     <menubar>
                         <menu label="Entities">

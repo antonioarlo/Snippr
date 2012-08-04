@@ -4,17 +4,33 @@
   xmlns:beans="http://www.springframework.org/schema/beans"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:zkc="http://www.zkoss.org/2008/zkspring/core"
+  xmlns:zksp="http://www.zkoss.org/2008/zkspring/security"
   xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
            http://www.springframework.org/schema/security
-           http://www.springframework.org/schema/security/spring-security-3.0.3.xsd">
+           http://www.springframework.org/schema/security/spring-security-3.0.3.xsd
+           http://www.zkoss.org/2008/zkspring/core
+           http://www.zkoss.org/2008/zkspring/core/zkspring-core.xsd
+           http://www.zkoss.org/2008/zkspring/security
+           http://www.zkoss.org/2008/zkspring/security/zkspring-security.xsd">
     <http auto-config='true'>
-        <intercept-url pattern="/**" access="ROLE_USER" />
+        <custom-filter ref="zkDesktopReuseFilter" position="FIRST" />
+        <custom-filter ref="zkDisableSessionInvalidateFilter" before="FORM_LOGIN_FILTER"/>
+        <custom-filter ref="zkEnableSessionInvalidateFilter" before="FILTER_SECURITY_INTERCEPTOR"/>
+        <custom-filter ref="zkLoginOKFilter" after="FILTER_SECURITY_INTERCEPTOR"/>
+        <custom-filter ref="zkError403Filter" after="LOGOUT_FILTER"/>
     </http>
+
+    <zksp:zk-event login-template-close-delay="5">
+        <zksp:intercept-event event="onClick" path="//**/btn_*" access="ROLE_USER" />
+        <zksp:intercept-event path="/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <zksp:form-login login-page="/login/popupLogin.zul"/>
+    </zksp:zk-event>
 
     <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref='authenticationProvider'/>
     </authentication-manager>
 
-		<beans:bean id="authenticationProvider" class="org.snippr.web.users.services.DBUserDetailsService" />
+    <beans:bean id="authenticationProvider" class="org.snippr.web.users.services.DBUserDetailsService" />
 </beans:beans>
