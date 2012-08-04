@@ -11,8 +11,8 @@
 
     <groupbox>
     <caption>Login</caption>
-    <h:form id="f" name="f" action="j_spring_security_check" method="POST"
-    xmlns:h="http://www.w3.org/1999/xhtml">
+    <n:form id="f" name="f" action="../j_spring_security_check" method="POST"
+    xmlns:n="http://www.zkoss.org/2005/zk/native">
         <grid>
             <rows>
                 <row>User: <textbox id="u" name="j_username"/></row>
@@ -20,12 +20,12 @@
                 <row><checkbox id="r" name="_spring_security_remember_me"/>Don't ask for my password for two weeks</row>
                 <row spans="2">
                     <hbox>
-                        <h:input type="submit" value="Login"/>
-                        <h:input type="reset" value="Reset"/>
+                        <n:input type="submit" value="Login"/>
+                        <n:input type="reset" value="Reset"/>
                     </hbox>
                 </row>
             </rows>
         </grid>
-    </h:form>
+    </n:form>
     </groupbox>
 </window>

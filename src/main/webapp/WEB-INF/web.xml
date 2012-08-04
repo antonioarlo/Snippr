@@ -80,7 +80,7 @@
     </session-config>
 
     <welcome-file-list>
-        <welcome-file>index.zul</welcome-file>
+        <welcome-file>login/login.zul</welcome-file>
     </welcome-file-list>
 
 </web-app>
